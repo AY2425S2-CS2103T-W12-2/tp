@@ -272,29 +272,37 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user profile**: Financial advisors
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Managing a significant number of client contacts 
+* Requires a one-stop platform to track and update client's financial details 
+* Experiences difficulties to keep track of client's financial needs across multiple platforms
+* Easy-to-use, fast and organized interface to maintain efficiency in their work
+* Keen to provide fast and efficient service to customers 
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Manage clients and their financial needs faster than a typical mouse/GUI driven app
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​           | I want to …​                                          | So that I can…​                               |
+|----------|-------------------|-------------------------------------------------------|-----------------------------------------------|
+| `* * *`  | Financial Advisor | Add a new client with contact details                 | Keep track of my clients                      |
+| `* * *`  | Financial Advisor | Read client’s contact details                         | View them when necessary                      |
+| `* * *`  | Financial Advisor | Delete a client’s record                              | Remove outdated or incorrect information      |
+| `* *`    | Financial Advisor | Edit a client’s contact details                       | Update them when necessary                    |
+| `* *`    | Financial Advisor | Search for a client by name                           | Quickly find their details                    |
+| `* *`    | Financial Advisor | Filter clients by location                            | Easily find clients within a specific region  |
+| `*`      | Financial Advisor | Store multiple contact numbers for a client           | Have alternative ways to reach them           |
+| `*`      | Financial Advisor | Store multiple addresses for a client                 | Keep track of their home and office locations |
+| `*`      | Financial Advisor | Categorize clients based on communication preferences | Contact them in their preferred way           |
+| `*`      | Financial Advisor | Send an email to a client directly from the app       | Communicate with them efficiently             |
+| `*`      | Financial Advisor | Initiate a phone call to a client from the app        | Reach them easily                             |
+| `*`      | Financial Advisor | Set reminders for following up with clients           | Don’t miss important meetings                 |
+| `*`      | Financial Advisor | Receive notifications about upcoming meetings         | Prepare in advance                            |
+| `*`      | Financial Advisor | Schedule recurring reminders for periodic check-ins   | Maintain regular contact                      |
 
 *{More to be added}*
 
