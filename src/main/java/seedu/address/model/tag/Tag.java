@@ -59,4 +59,7 @@ public class Tag {
         return '[' + tagName + ']';
     }
 
+    public boolean isEqualTo(String string) {
+        return tagName.equals(string);
+    }
 }

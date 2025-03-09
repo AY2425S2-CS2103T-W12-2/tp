@@ -23,7 +23,7 @@
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
-    "tags" : [ "friends" ]
+    "tags" : [ "friends", "Priority" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
