@@ -58,6 +58,8 @@
         "product-scope": "Product scope",
         "user-stories": "User stories",
         "use-cases": "Use cases",
+        "uc01-add-client": "UC01 - Add Client",
+        "uc02-delete-client": "UC02 - Delete Client",
         "non-functional-requirements": "Non-Functional Requirements",
         "glossary": "Glossary",
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
