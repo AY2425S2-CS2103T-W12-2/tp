@@ -48,16 +48,12 @@ public class PriorityCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
+        Person personToPrioritise = getPersonFromIndex(lastShownList, index);
+        Person priorityPerson = togglePriorityTag(personToPrioritise);
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = togglePriorityTag(personToEdit);
-
-        model.setPerson(personToEdit, editedPerson);
+        model.setPerson(personToPrioritise, priorityPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_PRIORITY_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(String.format(MESSAGE_PRIORITY_PERSON_SUCCESS, Messages.format(priorityPerson)));
     }
 
     /**
@@ -67,14 +63,11 @@ public class PriorityCommand extends Command {
     private static Person togglePriorityTag(Person personToEdit) throws CommandException {
         assert personToEdit != null;
 
-        // Create a mutable set
+        // Creates a mutable set
         Set<Tag> tags = new HashSet<>(personToEdit.getTags());
 
-        boolean isPriority = tags.stream()
-                .anyMatch(tag -> tag.isEqualTo("Priority"));
-
         // Toggles priority
-        if (!isPriority) {
+        if (!isPriority(tags)) {
             tags.add(new Tag("Priority"));
         } else {
             tags = tags.stream()
@@ -89,6 +82,15 @@ public class PriorityCommand extends Command {
                 personToEdit.getAddress(),
                 tags
         );
+    }
+
+    /**
+     * Returns whether a tag with tagName "Priority" exists in a list of tags
+     *
+     * @param tags the list of tags
+     */
+    private static boolean isPriority(Set<Tag> tags) {
+        return tags.stream().anyMatch(t -> t.isEqualTo("Priority"));
     }
 
     @Override

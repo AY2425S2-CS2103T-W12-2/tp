@@ -13,7 +13,7 @@ public class PriorityCommandParserTest {
     private PriorityCommandParser parser = new PriorityCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    public void parse_validArgs_returnsDeleteClientCommand() {
         assertParseSuccess(parser, "1", new PriorityCommand(INDEX_FIRST_PERSON));
     }
 
