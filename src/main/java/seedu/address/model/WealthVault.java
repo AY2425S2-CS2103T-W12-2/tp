@@ -15,7 +15,7 @@ import seedu.address.model.person.UniquePersonList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class WealthVault implements ReadOnlyWealthVault {
 
     private final UniquePersonList persons;
     private final UniqueClientList clients;
@@ -31,12 +31,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         clients = new UniqueClientList();
     }
 
-    public AddressBook() {}
+    public WealthVault() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an WealthVault using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public WealthVault(ReadOnlyWealthVault toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -56,9 +56,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code WealthVault} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyWealthVault newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -95,7 +95,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code WealthVault}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -182,7 +182,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Compares this address book to another object for equality.
      *
      * @param other The object to compare with.
-     * @return True if the other object is an AddressBook with the same data, false otherwise.
+     * @return True if the other object is an WealthVault with the same data, false otherwise.
      */
     @Override
     public boolean equals(Object other) {
@@ -191,12 +191,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddressBook)) {
+        if (!(other instanceof WealthVault)) {
             return false;
         }
 
-        AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons) && clients.equals(otherAddressBook.clients);
+        WealthVault otherWealthVault = (WealthVault) other;
+        return persons.equals(otherWealthVault.persons) && clients.equals(otherWealthVault.clients);
     }
 
     /**

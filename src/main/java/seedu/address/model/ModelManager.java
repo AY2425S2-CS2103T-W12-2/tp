@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.Person;
 
 /**
@@ -19,25 +20,28 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final WealthVault wealthVault;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
+    private final FilteredList<Client> filteredClients;
+
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given WealthVault and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyWealthVault wealthVault, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(wealthVault, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + wealthVault + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.wealthVault = new WealthVault(wealthVault);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.wealthVault.getPersonList());
+        filteredClients = new FilteredList<>(this.wealthVault.getClientList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new WealthVault(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -65,67 +69,106 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getWealthVaultFilePath() {
+        return userPrefs.getWealthVaultFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setWealthVaultPath(Path wealthVaultFilePath) {
+        requireNonNull(wealthVaultFilePath);
+        userPrefs.setWealthVaultFilePath(wealthVaultFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== WealthVault ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setWealthVault(ReadOnlyWealthVault wealthVault) {
+        this.wealthVault.resetData(wealthVault);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyWealthVault getWealthVault() {
+        return wealthVault;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return wealthVault.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasClient(Client client) {
+        requireNonNull(client);
+        return wealthVault.hasClient(client);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        wealthVault.removePerson(target);
+    }
+
+    @Override
+    public void deleteClient(Client target) {
+        wealthVault.removeClient(target);
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        wealthVault.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addClient(Client client) {
+        wealthVault.addClient(client);
+        updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
     }
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        wealthVault.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public void setClient(Client target, Client editedClient) {
+        requireAllNonNull(target, editedClient);
+
+        wealthVault.setClient(target, editedClient);
     }
 
     //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedWealthVault}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedWealthVault}
+     */
+    @Override
+    public ObservableList<Client> getFilteredClientList() {
+        return filteredClients;
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredClientList(Predicate<Client> predicate) {
+        requireNonNull(predicate);
+        filteredClients.setPredicate(predicate);
     }
 
     @Override
@@ -140,7 +183,8 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
+
+        return wealthVault.equals(otherModelManager.wealthVault)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }

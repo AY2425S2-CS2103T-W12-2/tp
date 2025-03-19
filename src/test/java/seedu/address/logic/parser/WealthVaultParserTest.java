@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.AddClientCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -24,15 +25,18 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.PriorityCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.client.Client;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.ClientBuilder;
+import seedu.address.testutil.ClientUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class WealthVaultParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final WealthVaultParser parser = new WealthVaultParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -40,6 +44,14 @@ public class AddressBookParserTest {
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
     }
+
+    @Test
+    public void parseCommand_addClient() throws Exception {
+        Client client = new ClientBuilder().build();
+        AddClientCommand command = (AddClientCommand) parser.parseCommand(ClientUtil.getAddClientCommand(client));
+        assertEquals(new AddClientCommand(client), command);
+    }
+
 
     @Test
     public void parseCommand_clear() throws Exception {
