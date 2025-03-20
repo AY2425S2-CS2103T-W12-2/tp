@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.FindClientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.client.NameContainsKeywordsPredicate;
+import seedu.address.model.client.ContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindClientCommand object
@@ -27,7 +27,7 @@ public class FindClientCommandParser implements Parser<FindClientCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindClientCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindClientCommand(new ContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }
