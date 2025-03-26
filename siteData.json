@@ -117,6 +117,8 @@
         "listing-all-persons-list": "Listing all persons : list",
         "editing-a-person-edit": "Editing a person : edit",
         "locating-persons-by-name-findclient": "Locating persons by name: findclient",
+        "locating-persons-by-name-and-tag-findclientor": "Locating persons by name and tag: findclientor",
+        "locating-specific-persons-by-name-and-tag-findclientand": "Locating specific persons by name and tag: findclientand",
         "deleting-a-person-deleteclient": "Deleting a person : deleteclient",
         "prioritising-a-person-priority": "Prioritising a person: priority",
         "clearing-all-entries-clear": "Clearing all entries : clear",
