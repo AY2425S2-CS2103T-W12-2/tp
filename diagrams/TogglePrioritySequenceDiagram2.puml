@@ -1,0 +1,53 @@
+@startuml
+mainframe sd [Create New Client]
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant "p:PriorityCommand" as PriorityCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "newTags:Set<Tag>" as nTags MODEL_COLOR
+participant "p:PriortyTag" as p MODEL_COLOR
+participant "newClient:Client" as nClient MODEL_COLOR
+end box
+
+create nTags
+PriorityCommand -> nTags : HashSet()
+activate nTags
+nTags --> PriorityCommand
+deactivate nTags
+
+alt oldTags does not contain a :PriorityTag
+    create p
+    PriorityCommand -> p : PriorityTag()
+    activate p
+    p --> PriorityCommand: p
+    deactivate p
+    PriorityCommand -> nTags
+    activate nTags
+    nTags -> nTags : add(p)
+    activate nTags
+    nTags --> nTags
+    deactivate nTags
+    nTags --> PriorityCommand
+    deactivate nTags
+else oldTags does not contain a :PriorityTag
+    PriorityCommand -> nTags
+    activate nTags
+    nTags -> nTags : filter
+    activate nTags
+    nTags --> nTags
+    deactivate nTags
+    nTags --> PriorityCommand
+    deactivate nTags
+end
+
+create nClient
+PriorityCommand -> nClient : Client()
+activate nClient
+nClient --> PriorityCommand
+deactivate nClient
+
+@enduml

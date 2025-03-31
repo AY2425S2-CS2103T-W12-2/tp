@@ -1,0 +1,31 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant "p:PriorityCommand" as PriorityCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "newClient:Client" as nClient MODEL_COLOR
+participant "oldClient:Client" as oClient MODEL_COLOR
+participant "oldTags:Set<Tag>" as oTags MODEL_COLOR
+end box
+
+[-> PriorityCommand : togglePriority(oldClient)
+activate PriorityCommand
+
+PriorityCommand -> oClient
+activate oClient
+oClient -> oTags  : getTags()
+activate oTags
+oTags --> oClient
+deactivate oTags
+oClient --> PriorityCommand
+deactivate oClient
+
+ref over PriorityCommand, nClient: Create New Client
+
+[<--PriorityCommand : newClient
+deactivate PriorityCommand
+@enduml

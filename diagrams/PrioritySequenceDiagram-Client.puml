@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant "p:PriorityCommand" as PriorityCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "oldClient:Client" as oClient MODEL_COLOR
+participant "newClient:Client" as nClient MODEL_COLOR
+end box
+
+[-> PriorityCommand : execute(index)
+activate PriorityCommand
+
+PriorityCommand -> Model
+activate Model
+Model -> Model : getFilteredClientList
+activate Model
+Model --> Model
+deactivate Model
+Model --> PriorityCommand
+deactivate Model
+
+PriorityCommand -> oClient : getClientFromIndex(index)
+activate oClient
+oClient --> PriorityCommand
+deactivate oClient
+
+PriorityCommand -> PriorityCommand
+activate  Pr
+create nClient
+PriorityCommand -> nClient : togglePriority(oldClient)
+activate nClient
+nClient --> PriorityCommand
+deactivate
+
+PriorityCommand -> Model
+activate Model
+Model -> Model : setClient(oldClient, newClient)
+activate Model
+Model --> Model
+deactivate Model
+Model --> PriorityCommand
+deactivate Model
+
+destroy oClient
+
+PriorityCommand -> Model
+activate Model
+Model -> Model : updateFilteredClientList
+activate Model
+Model --> Model
+deactivate Model
+Model --> PriorityCommand
+deactivate Model
+
+[<--PriorityCommand
+deactivate PriorityCommand
+@enduml
