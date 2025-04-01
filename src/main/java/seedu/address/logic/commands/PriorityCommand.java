@@ -54,6 +54,7 @@ public class PriorityCommand extends Command {
 
         model.setClient(clientToPrioritise, priorityClient);
         model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
+
         return new CommandResult(String.format(MESSAGE_PRIORITY_CLIENT_SUCCESS, Messages.format(priorityClient)));
     }
 
@@ -81,7 +82,8 @@ public class PriorityCommand extends Command {
                 clientToEdit.getPhone(),
                 clientToEdit.getEmail(),
                 clientToEdit.getAddress(),
-                tags
+                tags,
+                true
         );
     }
 

@@ -110,6 +110,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void sortClientsByPriority() {
+        addressBook.sortClientsByPriority();
+    }
+
+    @Override
     public void setClient(Client target, Client editedClient) {
         requireAllNonNull(target, editedClient);
 

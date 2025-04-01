@@ -75,6 +75,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void sortClientsByPriority() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setClient(Client target, Client editedClient) {
         throw new AssertionError("This method should not be called.");
     }

@@ -109,6 +109,10 @@ public class AddressBookTest {
         public void sortClients() {
             clients.sort(Comparator.comparing(client -> client.getName().fullName));
         }
+
+        public void sortClientsByPriority() {
+            clients.sort(Comparator.comparing(client -> client.getPriority()));
+        }
     }
 
 }

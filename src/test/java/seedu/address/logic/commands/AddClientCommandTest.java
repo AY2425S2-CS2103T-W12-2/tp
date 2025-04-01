@@ -155,6 +155,11 @@ public class AddClientCommandTest {
         }
 
         @Override
+        public void sortClientsByPriority() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Client> getFilteredClientList() {
             throw new AssertionError("This method should not be called.");
         }

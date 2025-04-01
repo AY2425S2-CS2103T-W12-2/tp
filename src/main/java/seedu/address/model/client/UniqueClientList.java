@@ -102,6 +102,10 @@ public class UniqueClientList implements Iterable<Client> {
         internalList.sort(Comparator.comparing(client -> client.getName().fullName, String.CASE_INSENSITIVE_ORDER));
     }
 
+    public void sortByPriority() {
+        internalList.sort(Comparator.comparing(client -> !client.getPriority()));
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

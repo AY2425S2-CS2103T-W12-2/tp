@@ -20,25 +20,38 @@ public class Client {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final boolean isPriority;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Constructor for Client with default priority.
      */
     public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, phone, email, address, tags, false);
+    }
+
+    /**
+     * Constructor for Client with explicit priority.
+     */
+    public Client(Name name, Phone phone, Email email, Address address, Set<Tag> tags, boolean isPriority) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.isPriority = isPriority;
     }
 
     public Name getName() {
         return name;
+    }
+
+    public boolean getPriority() {
+        return isPriority;
     }
 
     public Phone getPhone() {
