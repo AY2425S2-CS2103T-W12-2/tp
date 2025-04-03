@@ -15,12 +15,12 @@ end box
 [-> PriorityCommand : togglePriority(oldClient)
 activate PriorityCommand
 
-PriorityCommand -> oClient
+PriorityCommand -> oClient : getTags()
 activate oClient
-oClient -> oTags  : getTags()
-activate oTags
-oTags --> oClient
-deactivate oTags
+    oClient -> oTags
+    activate oTags
+    oTags --> oClient
+    deactivate oTags
 oClient --> PriorityCommand
 deactivate oClient
 

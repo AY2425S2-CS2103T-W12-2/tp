@@ -14,49 +14,45 @@ end box
 
 [-> PriorityCommand : execute(index)
 activate PriorityCommand
+loop while indexes is not empty
+PriorityCommand -> Model : getFilteredClientList()
+activate Model
 
-PriorityCommand -> Model
-activate Model
-Model -> Model : getFilteredClientList
-activate Model
-Model --> Model
-deactivate Model
 Model --> PriorityCommand
 deactivate Model
 
-PriorityCommand -> oClient : getClientFromIndex(index)
-activate oClient
-oClient --> PriorityCommand
-deactivate oClient
+PriorityCommand -> PriorityCommand : getClientFromIndex(index)
+activate PriorityCommand
+    PriorityCommand -> oClient
+    activate oClient
+    oClient --> PriorityCommand
+    deactivate oClient
+PriorityCommand --> PriorityCommand
+deactivate PriorityCommand
 
-PriorityCommand -> PriorityCommand
-activate  Pr
-create nClient
-PriorityCommand -> nClient : togglePriority(oldClient)
-activate nClient
-nClient --> PriorityCommand
-deactivate
+PriorityCommand -> PriorityCommand : togglePriority
+activate PriorityCommand
+    create nClient
+    PriorityCommand -> nClient : Client()
+    activate nClient
+    nClient --> PriorityCommand
+    deactivate nClient
+PriorityCommand --> PriorityCommand
+deactivate PriorityCommand
 
-PriorityCommand -> Model
+
+PriorityCommand -> Model : setClient(oldClient, newClient)
 activate Model
-Model -> Model : setClient(oldClient, newClient)
-activate Model
-Model --> Model
-deactivate Model
+
 Model --> PriorityCommand
 deactivate Model
 
-destroy oClient
+PriorityCommand -> Model : updateFilteredClientList
+activate Model
 
-PriorityCommand -> Model
-activate Model
-Model -> Model : updateFilteredClientList
-activate Model
-Model --> Model
-deactivate Model
 Model --> PriorityCommand
 deactivate Model
-
+end
 [<--PriorityCommand
 deactivate PriorityCommand
 @enduml
