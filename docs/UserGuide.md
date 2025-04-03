@@ -31,9 +31,9 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a  L
 
    * `list` : Lists all contacts.
 
-   * `addclient n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the application.
+   * `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the application.
 
-   * `deleteclient 3` : Deletes the 3rd contact shown in the current list.
+   * `delc 3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
@@ -50,13 +50,13 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a  L
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `addclient n/NAME`, `NAME` is a parameter which can be used as `addclient n/John Doe`.
+  e.g. in `addc n/NAME`, `NAME` is a parameter which can be used as `addc n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/POLICY_TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g `n/NAME [t/POLICY_TAG]` can be used as `n/John Doe t/Policy A` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/POLICY_TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/POLICY_TAG]…​` can be used as ` ` (i.e. 0 times), `t/Policy A`, `t/Policy B t/Policy C` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -73,142 +73,174 @@ Shows a message explaning how to access the help page.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+**Format:** `help`
 
-..............!!!
+### Adding a client: `addc`
+
+Adds a client to WealthVault.
+
+**Format:** `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​`
+
+<box type="tip" seamless>
+
+**Tips:** 
+- Policy tags are not compulsory when adding a client, but if the t/ prefix is used, it must
+be accompanied by a valid policy name.
+
+</box>
+
+**Examples:**
+* `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `addc n/Betsy Crowe t/Policy A e/betsycrowe@example.com a/Newgate Prison p/1234567 t/Prison End-of-Life Insurance`
+
+### Adding a policy: `addp`
+
+Adds a policy to a client in WealthVault.
+
+**Format:** `addp INDEX t/POLICY_TAG`
+
+<box type="tip" seamless>
+
+**Tips:** 
+- If the t/ prefix is used, it must be accompanied by a valid policy name.
+</box>
+
+**Examples:**
+* `addp 1 t/Health Insurance`
+* `addp 2 t/Home Protection Plan`
 
 
-### Listing all persons : `list`
+### Listing all clients : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all clients in WealthVault.
 
-Format: `list`
+**Format:** `list`
 
-### Editing a person : `edit`
+### Editing a client : `edit`
 
-Edits an existing person in the address book.
+Edits an existing client in WealthVault.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`
+**Format:** `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the client at the specified `INDEX`. The index refers to the index number shown in the displayed client list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
+* When editing tags, the existing tags of the client will be removed i.e adding of tags is not cumulative.
+* You can remove all the client’s tags by typing `t/` without
     specifying any tags after it.
 
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+**Examples:**
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st client to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd client to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `findclient`
+### Locating clients by name: `findclient`
 
-Finds persons whose names contain any of the given keywords.
+Finds clients whose names contain any of the given keywords.
 
-Format: `findclient KEYWORD [MORE_KEYWORDS]`
+**Format:** `findclient KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Clients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Examples:
+**Examples:**
 * `findclient John` returns `john` and `John Doe`
 * `findclient alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Locating persons by name and tag: `findclientor`
+### Locating clients by name and tag: `findclientor`
 
-Finds persons whose name or tag contain any of the given keywords.
+Finds clients whose name or tag contain any of the given keywords.
 
-Format: `findclientor KEYWORD [MORE_KEYWORDS]`
+**Format:** `findclientor KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Both the name and the tag is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Clients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Examples:
+**Examples:**
 * `findclientor John` returns `john` and `John Doe`
 * `findclientor alex david priority` returns `Alex Yeoh`, `David Li` and anyone with the `Priority` tag attached<br>
   ![result for 'find alex david'](images/findclientorAlexDavidPriority.png)
 
-### Locating specific persons by name and tag: `findclientand`
+### Locating specific clients by name and tag: `findclientand`
 
-Finds persons whose name or tag contain all of the given keywords.
+Finds clients whose name or tag contain all of the given keywords.
 
-Format: `findclientand KEYWORD [MORE_KEYWORDS]`
+**Format:** `findclientand KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Both the name and the tag is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Clients matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Examples:
+**Examples:**
 * `findclientand John` returns `john` and `John Doe`
 * `findclientand friends priority` returns only people with the `Priority` and `friends` tags attached<br>
   ![result for 'find alex david'](images/findclientandFriendsPriority.png)
 
-### Deleting a person : `deleteclient`
+### Deleting a client : `delc`
 
-Deletes the specified person from the address book.
+Deletes the specified client from WealthVault.
 
-Format: `deleteclient INDEX`
+**Format:** `delc INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the client at the specified `INDEX`.
+* The index refers to the index number shown in the displayed client list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
-Examples:
-* `list` followed by `deleteclient 2` deletes the 2nd person in the address book.
-* `findclient Betsy` followed by `deleteclient 1` deletes the 1st person in the results of the `findclient` command.
+**Examples:**
+* `list` followed by `delc 2` deletes the 2nd client in WealthVault.
+* `findclient Betsy` followed by `delc 1` deletes the 1st client in the results of the `findclient` command.
 
-### Deleting a policy: `deletepolicy`
+### Deleting a policy: `delp`
 
-Deletes the specified policy from the address book.
+Deletes the specified policy from WealthVault.
 
-Format: `deletepolicy INDEX`
+**Format:** `delp INDEX`
 
 * Deletes the policy at the specified `INDEX`.
 * The index refers to the index number shown in the displayed policy list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
-Examples:
-* `listpolicy` followed by `deletepolicy 2` deletes the 2nd policy in the address book.
-* `findpolicy Home` followed by `deletepolicy 1` deletes the 1st policy in the results of the `findpolicy` command.
+**Examples:**
+* `listpolicy` followed by `delp 2` deletes the 2nd policy in WealthVault.
+* `findpolicy Home` followed by `delp 1` deletes the 1st policy in the results of the `findpolicy` command.
 
 
-### Prioritising a person: `priority`
+### Prioritising a client: `priority`
 
-Toggles the priority of the specified person from the address book as indicated with a "Priority" tag.
+Toggles the priority of the specified client from WealthVault as indicated with a "Priority" tag.
 
-Format: `priority INDEX`
+**Format:** `priority INDEX`
 
-* Adds a "Priority" tag to the specified `INDEX` if such a tag isn't attached to the person
-* Removes the "Priority" tag of the specified `INDEX` if such a tag is already attached to the person
+* Adds a "Priority" tag to the specified `INDEX` if such a tag isn't attached to the client
+* Removes the "Priority" tag of the specified `INDEX` if such a tag is already attached to the client
 * The index **must be a positive integer** 1, 2, 3, …​
 
-Examples:
-* `list` followed by `priority 1` adds a priority tag to the 1st person in the list if the person is yet to be attached with a "Priority" tag.
-* `list` followed by `priority 3` removes a priority tag from the 3rd person in the list if the person is attached with a "Priority" tag.
+**Examples:**
+* `list` followed by `priority 1` adds a priority tag to the 1st client in the list if the client is yet to be attached with a "Priority" tag.
+* `list` followed by `priority 3` removes a priority tag from the 3rd client in the list if the client is attached with a "Priority" tag.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from WealthVault.
 
-Format: `clear`
+**Format:** `clear`
 
 ### Exiting the program : `exit`
 
 Exits the program.
 
-Format: `exit`
+**Format:** `exit`
 
 ### Saving the data
 
@@ -222,7 +254,7 @@ WealthVault data are saved automatically as a JSON file `[JAR file location]/dat
 
 **Caution:**
 If your changes to the data file makes its format invalid, WealthVault will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the WealthVault to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause WealthVault to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 ### Archiving data files `[coming in v2.0]`
@@ -247,19 +279,19 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action            | Format, Examples                                                                                                                                                                        |
-|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add Client**     | `addclient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addclient n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Add Policy**     | `addpolicy INDEX t/POLICY_TAG ` <br> e.g., `addpolicy 1 t/Health Insurance`                                                                                                             |
-| **Clear**         | `clear`                                                                                                                                                                                 |
-| **Delete Client**  | `deleteclient INDEX`<br> e.g., `deleteclient 3`                                                                                                                                         |
-| **Delete Policy**  | `deletepolicy INDEX t/POLICY_TAG`<br> e.g., `deletepolicy 2 t/Health Insurance`                                                                                                         |
-| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                      |
-| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                                  |
-| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                              |
-| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                            |
-| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                                  |
-| **List**          | `list`                                                                                                                                                                                  |
-| **Help**          | `help`                                                                                                                                                                                  |
+| Action            | Format, Examples                                                                                                                                                                |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Client**     | `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/POLICY_TAG]…​` <br> e.g., `addc n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/Policy A t/Policy B` |
+| **Add Policy**     | `addp INDEX t/POLICY_TAG ` <br> e.g., `addp 1 t/Health Insurance`                                                                                                               |
+| **Clear**         | `clear`                                                                                                                                                                         |
+| **Delete Client**  | `delc INDEX`<br> e.g., `delc 3`                                                                                                                                                 |
+| **Delete Policy**  | `delp INDEX t/POLICY_TAG`<br> e.g., `delp 2 t/Health Insurance`                                                                                                                 |
+| **Edit**          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                              |
+| **Find**          | `findclient KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclient James Jake`                                                                                                          |
+| **Find (Or)**     | `findclientor KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientor James Jake`                                                                                                      |
+| **Find (And)**    | `findclientand KEYWORD [MORE_KEYWORDS]`<br> e.g., `findclientand James Jake`                                                                                                    |
+| **Priority**      | `priority INDEX`<br> e.g.,`priority 1`                                                                                                                                          |
+| **List**          | `list`                                                                                                                                                                          |
+| **Help**          | `help`                                                                                                                                                                          |
 
 
