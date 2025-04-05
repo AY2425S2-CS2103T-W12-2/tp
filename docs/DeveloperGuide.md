@@ -51,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteclient 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delc 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -162,13 +162,13 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Delete Client
 
-The `deleteclient` command removes a client from the address book based on the specified index.
+The `delc` command removes a client from the address book based on the specified index.
 
 The Class Diagram of a Client can be [seen in the diagram above](#model-component).
 
 #### Implementation
 
-The `deleteclient` command deletes a client at a given index. The following sequence diagrams  
+The `delc` command deletes a client at a given index. The following sequence diagrams  
 illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Logic.puml" width="650" />
@@ -212,13 +212,13 @@ The current implementation uses Alternative 1 as it provides better clarity and 
 
 ### Delete Policy
 
-The `deletepolicy` command removes a policy (tag) from a client's list of policies.
+The `delp` command removes a policy (tag) from a client's list of policies.
 
 The Class Diagram of a Client can be [seen in the diagram above](#model-component).
 
 #### Implementation
 
-The `deletepolicy` command deletes a policy at a given index within a displayed policy list.  
+The `delp` command deletes a policy at a given index within a displayed policy list.  
 The following sequence diagrams illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeletePolicySequenceDiagram.puml" width="650" />
@@ -489,7 +489,7 @@ _{More to be added}_
 3. User enters the required client details.
 4. WealthVault verifies the details.
 5. WealthVault adds the client to the address book and confirms successful addition.
-   **Use case ends.**
+6. **Use case ends.**
 
 #### Extensions:
 
@@ -519,10 +519,9 @@ _{More to be added}_
 1. User chooses to delete a client.
 2. WealthVault requests the client’s details for deletion.
 3. User enters the required details.
-4. WealthVault requests confirmation of the deletion.
-5. User confirms the deletion.
-6. WealthVault removes the client from the address book and confirms successful deletion.
-   **Use case ends.**
+4. User confirms the deletion by clicking "enter".
+5. WealthVault removes the client from the address book and confirms successful deletion. 
+6. **Use case ends.**
 
 #### Extensions:
 
