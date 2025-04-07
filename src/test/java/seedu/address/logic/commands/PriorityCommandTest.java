@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PRIORITY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -59,7 +60,8 @@ public class PriorityCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredClientList().size() + 1);
         PriorityCommand priorityCommand = new PriorityCommand(List.of(outOfBoundIndex));
 
-        assertCommandFailure(priorityCommand, model, Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
+        assertCommandFailure(priorityCommand, model, Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX
+            + String.format(MESSAGE_INVALID_COMMAND_FORMAT, PriorityCommand.MESSAGE_USAGE));
     }
 
     @Test

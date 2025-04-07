@@ -15,13 +15,13 @@ public class Phone {
     public static final String MESSAGE_CONSTRAINTS =
             "The phone number given is invalid!\n"
                     + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "Phone numbers should be of the format +[international code] [number].\n"
+                    "Phone numbers should be of the format +[international code] [whitespace] [number].\n"
                             + "If no international code is provided, the phone number will start with +65.\n"
                             + "Do not include whitespace in the international code.\n\n"
                             + "The international code should be 1-3 digits.\n"
                             + "The number should be at most 13 digits.");
 
-    public static final String VALIDATION_REGEX = "^(\\+?\\d{1,3} )?\\d{3,13}$";
+    public static final String VALIDATION_REGEX = "^(\\+?\\d{1,3} )?(\\d\\s?){3,13}$";
     public final String value;
 
     /**
@@ -48,15 +48,20 @@ public class Phone {
             return phone;
         }
 
+        phone = phone.trim().replaceAll("\\s+", " ");
+
         if (phone.startsWith("+")) {
-            return phone;
-        } else {
-            String[] temp = phone.split(" ");
-            if (temp.length == 1) {
-                return "+65 " + phone;
-            } else {
-                return "+" + temp[0] + " " + temp[1];
+            String[] parts = phone.split(" ", 2);
+            if (parts.length < 2) {
+                return phone;
             }
+
+            String countryCode = parts[0];
+            String numberPart = parts[1].replaceAll("\\s+", "");
+            return countryCode + " " + numberPart;
+        } else {
+            String numberPart = phone.replaceAll("\\s+", "");
+            return "+65 " + numberPart;
         }
     }
 

@@ -7,6 +7,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant "p:PriorityCommandParser" as PriorityCommandParser LOGIC_COLOR
 participant "p:PriorityCommand" as PriorityCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -15,7 +16,7 @@ end box
 [-> LogicManager : execute()
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand()
+LogicManager -> AddressBookParser : parseCommand(indexes)
 activate AddressBookParser
 
 create PriorityCommandParser
@@ -23,7 +24,7 @@ AddressBookParser -> PriorityCommandParser
 activate PriorityCommandParser
 
 create PriorityCommand
-PriorityCommandParser -> PriorityCommand : parse(index)
+PriorityCommandParser -> PriorityCommand : parse(indexes)
 activate PriorityCommand
 PriorityCommandParser <-- PriorityCommand
 deactivate PriorityCommand
@@ -37,28 +38,27 @@ deactivate AddressBookParser
 LogicManager -> PriorityCommand : execute()
 activate PriorityCommand
 
-PriorityCommand -> Model
-activate Model
-Model -> Model : getFilteredClientList()
-Model --> PriorityCommand
-deactivate Model
+loop while indexes is not empty
+    PriorityCommand -> Model : getFilteredClientList()
+    activate Model
+    Model --> PriorityCommand
+    deactivate Model
 
-PriorityCommand -> Model
-activate Model
-Model -> Model : setClient()
-Model --> PriorityCommand
-deactivate Model
+    PriorityCommand -> Model : setClient()
+    activate Model
+    Model --> PriorityCommand
+    deactivate Model
+end
 
-PriorityCommand -> Model
-activate Model
-Model -> Model : updateFilteredClientList()
-Model --> PriorityCommand
-deactivate Model
+create CommandResult
+PriorityCommand -> CommandResult
+activate CommandResult
+CommandResult --> PriorityCommand
+deactivate CommandResult
 
 PriorityCommand --> LogicManager : result
 deactivate PriorityCommand
 PriorityCommand -[hidden]-> LogicManager : result
-destroy PriorityCommand
 
 [<--LogicManager
 deactivate LogicManager

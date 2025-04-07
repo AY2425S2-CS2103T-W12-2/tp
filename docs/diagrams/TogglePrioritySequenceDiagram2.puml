@@ -25,21 +25,14 @@ alt oldTags does not contain a :PriorityTag
     activate p
     p --> PriorityCommand: p
     deactivate p
-    PriorityCommand -> nTags
+    PriorityCommand -> nTags : add(p)
     activate nTags
-    nTags -> nTags : add(p)
-    activate nTags
-    nTags --> nTags
-    deactivate nTags
+
     nTags --> PriorityCommand
     deactivate nTags
-else oldTags does not contain a :PriorityTag
-    PriorityCommand -> nTags
+else oldTags contains a PriorityTag
+    PriorityCommand -> nTags : filter()
     activate nTags
-    nTags -> nTags : filter
-    activate nTags
-    nTags --> nTags
-    deactivate nTags
     nTags --> PriorityCommand
     deactivate nTags
 end

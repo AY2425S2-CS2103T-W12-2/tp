@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic as LogicPackage {
+
+Class "{abstract}\nAbstractFindClientCommand" as ab
+Class "FindClientOrCommand" as or
+Class "FindClientAndfCommand" as and
+
+
+ab -left|> or
+ab -right|> and
+ab *-down-> "1" AbstractContainsKeywordsPredicate
+or *--> "1" ContainsAnyKeywordPredicate
+ContainsAnyKeywordPredicate --|> AbstractContainsKeywordsPredicate
+and *--> "1" ContainsAllKeywordPredicate
+ContainsAllKeywordPredicate --|> AbstractContainsKeywordsPredicate
+
+
+@enduml

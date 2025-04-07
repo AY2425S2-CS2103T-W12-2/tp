@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_COMPULSORY_FIELD_MISSING;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.VALID_INDEX_NOT_PROVIDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -24,7 +25,6 @@ public class AddPolicyCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() throws ParseException {
-        // Prepare the expected tags and client index
         Set<Tag> policiesToAdd = new HashSet<>();
         policiesToAdd.add(new Tag("Health"));
         policiesToAdd.add(new Tag("Life"));
@@ -55,7 +55,7 @@ public class AddPolicyCommandParserTest {
     public void parse_invalidClientIndex_throwsParseException() {
         assertParseFailure(parser, "abc " + PREFIX_TAG + "Health",
                 Messages.VALID_INDEX_NOT_PROVIDED
-                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class AddPolicyCommandParserTest {
 
     @Test
     public void parse_emptyCommand_throwsParseException() {
-        assertParseFailure(parser, "", "Valid index not provided!\n"
+        assertParseFailure(parser, "", VALID_INDEX_NOT_PROVIDED
                 + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE));
     }
 
@@ -79,6 +79,13 @@ public class AddPolicyCommandParserTest {
         assertParseSuccess(parser, "2 " + PREFIX_TAG + "Health",
                 new AddPolicyCommand(INDEX_SECOND_CLIENT, policiesToAdd));
     }
+
+    @Test
+    public void parse_invalidPolicyTag_throwsParseException() {
+        assertParseFailure(parser, "1 " + PREFIX_TAG + "  ",
+                AddPolicyCommandParser.INVALID_POLICY_PROVIDED
+                        + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommandParser.INVALID_POLICY_FEATURES)
+                        + "\n"
+                        + AddPolicyCommand.MESSAGE_USAGE);
+    }
 }
-
-

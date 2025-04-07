@@ -5,15 +5,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showClientAtIndex;
 import static seedu.address.testutil.TypicalClients.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CLIENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CLIENT;
+
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +28,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.client.Client;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ClientBuilder;
 import seedu.address.testutil.EditClientDescriptorBuilder;
 
@@ -37,8 +41,27 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Client editedClient = new ClientBuilder().build();
-        EditClientDescriptor descriptor = new EditClientDescriptorBuilder(editedClient).build();
+        // Get the first client and its tags
+        Client firstClient = model.getFilteredClientList().get(0);
+        Set<Tag> originalTags = firstClient.getTags();
+
+        // Create a new client with all fields edited but preserving tags
+        Client editedClient = new ClientBuilder()
+                .withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB)
+                .withAddress(VALID_ADDRESS_BOB)
+                .build();
+        // Manually set the tags to match the original client's tags
+        editedClient = new Client(editedClient.getName(), editedClient.getPhone(),
+                editedClient.getEmail(), editedClient.getAddress(), originalTags);
+
+        EditClientDescriptor descriptor = new EditClientDescriptorBuilder()
+                .withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB)
+                .withAddress(VALID_ADDRESS_BOB)
+                .build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CLIENT, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CLIENT_SUCCESS, Messages.format(editedClient));
@@ -56,10 +79,10 @@ public class EditCommandTest {
 
         ClientBuilder clientInList = new ClientBuilder(lastClient);
         Client editedClient = clientInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .build();
 
         EditClientDescriptor descriptor = new EditClientDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withPhone(VALID_PHONE_BOB).build();
         EditCommand editCommand = new EditCommand(indexLastClient, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CLIENT_SUCCESS, Messages.format(editedClient));
@@ -144,6 +167,60 @@ public class EditCommandTest {
                 new EditClientDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_CLIENT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_tagEditAttempted_tagsPreserved() {
+        // Create a client with a tag "friend"
+        Client originalClient = new ClientBuilder().withName("Original Name")
+                .withTags("friend").build();
+        model = new ModelManager(new AddressBook(), new UserPrefs());
+        model.addClient(originalClient);
+
+        // Try to edit the name and change tag to "enemy" - tag change should be ignored
+        EditClientDescriptor descriptor = new EditClientDescriptorBuilder()
+                .withName("New Name")
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_CLIENT, descriptor);
+
+        // Expected client should have new name but original tag
+        Client expectedClient = new ClientBuilder(originalClient)
+                .withName("New Name")
+                .withTags("friend")
+                .build();
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CLIENT_SUCCESS,
+            Messages.format(expectedClient));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setClient(originalClient, expectedClient);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_noTagsInOriginalClient_emptyTagsPreserved() {
+        // Create a client with no tags
+        Client originalClient = new ClientBuilder().withName("Original Name").build();
+        model = new ModelManager(new AddressBook(), new UserPrefs());
+        model.addClient(originalClient);
+
+        // Try to edit the name and add a tag - tag addition should be ignored
+        EditClientDescriptor descriptor = new EditClientDescriptorBuilder()
+                .withName("New Name")
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_CLIENT, descriptor);
+
+        // Expected client should have new name but still no tags
+        Client expectedClient = new ClientBuilder(originalClient)
+                .withName("New Name")
+                .build();
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CLIENT_SUCCESS,
+            Messages.format(expectedClient));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setClient(originalClient, expectedClient);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

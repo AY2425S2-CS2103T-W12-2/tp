@@ -66,7 +66,8 @@ public class Address {
      * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(VALIDATION_REGEX) && test.length() <= 150;
+        String addressWithoutWhitespace = test.replaceAll("\\s+", "");
+        return test.matches(VALIDATION_REGEX) && addressWithoutWhitespace.length() <= 150;
     }
 
     @Override

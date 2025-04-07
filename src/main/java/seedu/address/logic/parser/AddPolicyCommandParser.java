@@ -19,7 +19,9 @@ import seedu.address.model.tag.Tag;
 public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
 
     public static final String INVALID_POLICY_PROVIDED =
-            "At least 1 policy tag contains invalid symbols or is empty! No policy tags added!\n";
+            "At least 1 policy tag given is invalid! No policy tags added!\n";
+    public static final String INVALID_POLICY_FEATURES =
+            "The policy tag is blank, purely whitespace or more than 150 characters long.\n";
 
 
     /**
@@ -51,7 +53,9 @@ public class AddPolicyCommandParser implements Parser<AddPolicyCommand> {
         } catch (ParseException pe) {
             throw new ParseException(
                     INVALID_POLICY_PROVIDED
-                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPolicyCommand.MESSAGE_USAGE), pe);
+                    + String.format(MESSAGE_INVALID_COMMAND_FORMAT, INVALID_POLICY_FEATURES)
+                    + "\n"
+                    + AddPolicyCommand.MESSAGE_USAGE, pe);
         }
     }
 

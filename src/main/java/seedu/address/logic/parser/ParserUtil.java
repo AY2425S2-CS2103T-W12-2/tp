@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_EMPTY_FIELD;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,8 +24,8 @@ import seedu.address.model.tag.TagFactory;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String DUPLICATE_INDEX = "Duplicate index found. Please ensure all index are unique";
+    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer. \n";
+    public static final String DUPLICATE_INDEX = "Duplicate index found. Please ensure all index are unique. \n";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -49,7 +50,9 @@ public class ParserUtil {
         String[] parts = oneBasedIndexes.trim().split("\\s+");
 
         for (String part : parts) {
-            if (!StringUtil.isNonZeroUnsignedInteger(part)) {
+            if (part.equals("")) {
+                throw new ParseException(MESSAGE_EMPTY_FIELD);
+            } else if (!StringUtil.isNonZeroUnsignedInteger(part)) {
                 throw new ParseException(MESSAGE_INVALID_INDEX);
             }
 

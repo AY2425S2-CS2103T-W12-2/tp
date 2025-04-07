@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLIENTS;
 
 import java.util.HashSet;
@@ -27,7 +28,7 @@ public class PriorityCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the client identified by the index number used in the displayed client list as priority.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX [MORE_INDEXES] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 2 3";
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
@@ -49,14 +50,18 @@ public class PriorityCommand extends Command {
         requireNonNull(model);
         List<Client> lastShownList = model.getFilteredClientList();
         StringBuilder msg = new StringBuilder();
-
-        for (Index index : indexes) {
-            assert index.getOneBased() != 0;
-            Client clientToPrioritise = getClientFromIndex(lastShownList, index);
-            Client priorityClient = togglePriorityTag(clientToPrioritise);
-            model.setClient(clientToPrioritise, priorityClient);
-            model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
-            msg.append(Messages.format(priorityClient));
+        try {
+            for (Index index : indexes) {
+                assert index.getOneBased() != 0;
+                Client clientToPrioritise = getClientFromIndex(lastShownList, index);
+                Client priorityClient = togglePriorityTag(clientToPrioritise);
+                model.setClient(clientToPrioritise, priorityClient);
+                model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
+                msg.append(Messages.format(priorityClient));
+            }
+        } catch (CommandException e) {
+            throw new CommandException(e.getMessage()
+                + String.format(MESSAGE_INVALID_COMMAND_FORMAT, PriorityCommand.MESSAGE_USAGE));
         }
 
         return new CommandResult(String.format(MESSAGE_PRIORITY_CLIENT_SUCCESS, msg));

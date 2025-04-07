@@ -39,6 +39,8 @@ public class AddClientCommand extends Command {
             + "t/Priority, if included, is not added. Please use priority command to toggle priority.\n"
             + "Duplicates are skipped.";
     public static final String MESSAGE_DUPLICATE_CLIENT = "This client already exists in WealthVault!";
+    public static final String MESSAGE_EXTRA_FIELD =
+            "There should not be any non-space characters between addc and the first prefix!\n";
 
     private final Client toAdd;
 

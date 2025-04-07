@@ -193,7 +193,7 @@ public class AddClientCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                MESSAGE_COMPULSORY_FIELD_MISSING
+                AddClientCommand.MESSAGE_EXTRA_FIELD
                         + String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClientCommand.MESSAGE_USAGE));
     }
 

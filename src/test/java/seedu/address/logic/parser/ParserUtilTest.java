@@ -59,6 +59,11 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseIndexes_emptyField_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIndexes(""));
+    }
+
+    @Test
     public void parseIndexes_invalidInput_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseIndexes("10 a"));
     }

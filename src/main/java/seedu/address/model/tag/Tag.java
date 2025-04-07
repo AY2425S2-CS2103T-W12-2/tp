@@ -13,10 +13,9 @@ import seedu.address.logic.commands.AddClientCommand;
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "At least 1 policy tag given is invalid!\n"
+            "At least 1 policy tag given is invalid or more than 150 characters long!\n"
                     + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "The policy tag could be blank, purely whitespace or contains invalid symbols such as \\.\n\n")
-                    + AddClientCommand.MESSAGE_USAGE;
+                    AddClientCommand.MESSAGE_USAGE);
     public static final String VALIDATION_REGEX = "^[\\p{Alnum} .,'~*@%\\-_!?\\+\\*\\$\\[\\]()\"]+$";
     public final String tagName;
 
@@ -36,8 +35,10 @@ public class Tag {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX) && test.length() <= 150;
+        String tagWithoutWhitespace = test.replaceAll("\\s+", "");
+        return tagWithoutWhitespace.matches(VALIDATION_REGEX) && tagWithoutWhitespace.length() <= 150;
     }
+
 
     /**
      * Processes the tag to modify it stylistically
