@@ -140,7 +140,7 @@ with(this){return _c('h4',{attrs:{"id":"implementation-2"}},[_v("Implementation"
 with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("addc")]),_v(" command adds a client at a given index. The following sequence diagrams"),_c('br'),_v("\nillustrate how this process flows through the logic component:")])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("The following sequence diagram illustrates how the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("AddClientCommand")]),_v(" class interacts with"),_c('br'),_v("\nmodel components to remove a client from WealthVault:")])}
+with(this){return _c('p',[_v("The following sequence diagram illustrates how the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("AddClientCommand")]),_v(" class interacts with"),_c('br'),_v("\nmodel components to add a client to WealthVault:")])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_v("As seen above, the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("execute")]),_v(" method adds the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Client")]),_v(" to WealthVault. If the index is invalid, an error is thrown.")])}
@@ -167,7 +167,7 @@ with(this){return _c('p',[_v("As seen above, the "),_c('code',{pre:true,attrs:{"
 with(this){return _c('h3',{attrs:{"id":"delete-client"}},[_v("Delete Client"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#delete-client","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("delc")]),_v(" command removes a client from WealthVault based on the specified index.")])}
+with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("delc")]),_v(" command deletes a client from WealthVault based on the specified index.")])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_v("The Class Diagram of a Client can be "),_c('a',{attrs:{"href":"#model-component"}},[_v("seen in the diagram above")]),_v(".")])}
@@ -179,25 +179,25 @@ with(this){return _c('h4',{attrs:{"id":"implementation-4"}},[_v("Implementation"
 with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("delc")]),_v(" command deletes a client at a given index. The following sequence diagrams"),_c('br'),_v("\nillustrate how this process flows through the logic component:")])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("The following sequence diagram illustrates how the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("DeleteClientCommand")]),_v(" class interacts with"),_c('br'),_v("\nmodel components to remove a client from WealthVault:")])}
+with(this){return _c('p',[_v("The following sequence diagram illustrates how the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("DeleteClientCommand")]),_v(" class interacts with model components to delete a client from WealthVault:")])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("As seen above, the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("execute")]),_v(" method retrieves the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Client")]),_v(" at the specified index and removes"),_c('br'),_v("\nit from WealthVault. If the index is invalid, an error is thrown.")])}
+with(this){return _c('p',[_v("As seen above, the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("execute")]),_v(" method retrieves the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Client")]),_v(" at the specified index and deletes it from WealthVault. If the index is invalid, an error is thrown.")])}
 },function anonymous(
 ) {
 with(this){return _c('h3',{attrs:{"id":"delete-multiple-clients"}},[_v("Delete Multiple Clients"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#delete-multiple-clients","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("deleteclientmult")]),_v(" command removes multiple clients from WealthVault based on the specified indices.")])}
+with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("deleteclientmult")]),_v(" command deletes multiple clients from WealthVault based on the specified indices.")])}
 },function anonymous(
 ) {
 with(this){return _c('h4',{attrs:{"id":"implementation-5"}},[_v("Implementation"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#implementation-5","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("deleteclientmult")]),_v(" command deletes multiple clients at given indices. The following sequence diagrams"),_c('br'),_v("\nillustrate how this process flows through the logic component:")])}
+with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("deleteclientmult")]),_v(" command deletes multiple clients at given indices. The following sequence diagrams illustrate how this process flows through the logic component:")])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("As seen above, the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("execute")]),_v(" method retrieves each "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Client")]),_v(" at the specified indices and removes"),_c('br'),_v("\nthem from WealthVault. If any index is invalid, an error is thrown.")])}
+with(this){return _c('p',[_v("As seen above, the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("execute")]),_v(" method retrieves each "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Client")]),_v(" at the specified indices and deletes them from WealthVault. If any index is invalid, an error is thrown.")])}
 },function anonymous(
 ) {
 with(this){return _c('h4',{attrs:{"id":"design-considerations"}},[_v("Design Considerations"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#design-considerations","onclick":"event.stopPropagation()"}})])}
@@ -212,7 +212,7 @@ with(this){return _c('ul',[_c('li',[_c('p',[_c('strong',[_v("Alternative 1 (curr
 with(this){return _c('h3',{attrs:{"id":"delete-policy"}},[_v("Delete Policy"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#delete-policy","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("delp")]),_v(" command removes a policy (tag) from a client's list of policies.")])}
+with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("delp")]),_v(" command deletes a policy (tag) from a client's list of policies.")])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_v("The Class Diagram of a Client can be "),_c('a',{attrs:{"href":"#model-component"}},[_v("seen in the diagram above")]),_v(".")])}
@@ -221,10 +221,10 @@ with(this){return _c('p',[_v("The Class Diagram of a Client can be "),_c('a',{at
 with(this){return _c('h4',{attrs:{"id":"implementation-6"}},[_v("Implementation"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#implementation-6","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("delp")]),_v(" command deletes a policy at a given index within a displayed policy list."),_c('br'),_v("\nThe following sequence diagrams illustrate how this process flows through the logic component:")])}
+with(this){return _c('p',[_v("The "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("delp")]),_v(" command deletes a policy from the client at the given index."),_c('br'),_v("\nThe following sequence diagrams illustrate how this process flows through the logic component:")])}
 },function anonymous(
 ) {
-with(this){return _c('p',[_v("As seen above, the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("execute")]),_v(" method retrieves the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Policy")]),_v(" at the specified index and removes"),_c('br'),_v("\nit from the corresponding "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Client")]),_v(" object. If the index is invalid, an error is thrown.")])}
+with(this){return _c('p',[_v("As seen above, the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("execute")]),_v(" method retrieves the "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Policy")]),_v(" at the specified index and deletes it from the corresponding "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Client")]),_v(" object. If the index is invalid, an error is thrown.")])}
 },function anonymous(
 ) {
 with(this){return _c('h3',{attrs:{"id":"priority-feature"}},[_v("Priority feature"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#priority-feature","onclick":"event.stopPropagation()"}})])}
@@ -419,7 +419,7 @@ with(this){return _c('h3',{attrs:{"id":"uc02-delete-client"}},[_v("UC02 - Delete
 with(this){return _c('h4',{attrs:{"id":"main-success-scenario-mss-2"}},[_v("Main Success Scenario (MSS):"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#main-success-scenario-mss-2","onclick":"event.stopPropagation()"}})])}
 },function anonymous(
 ) {
-with(this){return _c('ol',[_c('li',[_v("User chooses to delete a client.")]),_v(" "),_c('li',[_v("WealthVault requests the client’s details for deletion.")]),_v(" "),_c('li',[_v("User enters the required details.")]),_v(" "),_c('li',[_v("User confirms the deletion by clicking \"enter\".")]),_v(" "),_c('li',[_v("WealthVault removes the client from WealthVault and confirms successful deletion.")]),_v(" "),_c('li',[_c('strong',[_v("Use case ends.")])])])}
+with(this){return _c('ol',[_c('li',[_v("User chooses to delete a client.")]),_v(" "),_c('li',[_v("WealthVault requests the client’s details for deletion.")]),_v(" "),_c('li',[_v("User enters the required details.")]),_v(" "),_c('li',[_v("User confirms the deletion by clicking \"enter\".")]),_v(" "),_c('li',[_v("WealthVault deletes the client from WealthVault and confirms successful deletion.")]),_v(" "),_c('li',[_c('strong',[_v("Use case ends.")])])])}
 },function anonymous(
 ) {
 with(this){return _c('h4',{attrs:{"id":"extensions-2"}},[_v("Extensions:"),_c('a',{staticClass:"fa fa-anchor",attrs:{"href":"#extensions-2","onclick":"event.stopPropagation()"}})])}
@@ -515,6 +515,6 @@ with(this){return _c('p',[_c('strong',[_v("Team Size:")]),_v(" 5")])}
 with(this){return _c('ol',[_c('li',[_c('p',[_c('strong',[_v("Case-sensitivity of prefixes:")]),_v(" The current command format only allows prefixes in lowercase\n(e.g. "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("a/")]),_v(", "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("e/")]),_v(", "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("n/")]),_v(", "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("p/")]),_v(", "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("t/")]),_v(", and not "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("A/")]),_v(", "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("E/")]),_v(", "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("N/")]),_v(", "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("P/")]),_v(", "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("T/")]),_v("). We plan to consider allowing prefixes to be case-insensitive to make it more convenient for users (e.g.\nlet "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("t/")]),_v(" and "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("T/")]),_v(" both be considered valid prefixes).")])]),_v(" "),_c('li',[_c('p',[_c('strong',[_v("Input validation for policy tags (part 1):")]),_v(" We currently impose restrictions on policy tags to disallow certain symbols ("),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("/")]),_v(" etc).\nHowever, the restriction might have been excessive. For instance, the user might want to create a policy tag with the name "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Policy A/B")]),_v(",\nwhich is likely a valid policy name in practice but is disallowed in our current setup. We plan to review the list of symbols allowed,\nto strike a balance between disallowing invalid input and maintaining flexibility for user-defined inputs.")])]),_v(" "),_c('li',[_c('p',[_c('strong',[_v("Input validation for policy tags (part 2):")]),_v(" We currently capitalise the first character of every word in the policy tag (e.g. "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("addp 1 t/policy A")]),_v(" results in "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Policy A")]),_v(" policy tag\nbeing added to the client at index 1, rather than "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("policy A")]),_v("), in order to prevent duplicates (e.g. "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("policy A")]),_v(" and "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Policy A")]),_v(" might be the same policy).\nHowever, this restriction may not always align with user expectations or preferences. For instance, the user might want to create a policy tag named "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("WholeLife Plan")]),_v(" rather than "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("Wholelife Plan")]),_v(".\nWe plan to revisit our approach to formatting of policy tag names, to strike a balance between disallowing invalid input and maintaining flexibility for user-defined inputs.")])]),_v(" "),_c('li',[_c('p',[_c('strong',[_v("Input validation for phone numbers:")]),_v(" We currently do not check for the validity of phone numbers based on the country code.\nFor instance, "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("+65 12345")]),_v(" is considered despite it being necessary for Singapore phone numbers (country indicated by "),_c('code',{pre:true,attrs:{"class":"hljs inline no-lang"}},[_v("+65")]),_v(") to\nbe 8 digits long. We plan to include such checks when validating user input for phone numbers.")])])])}
 },function anonymous(
 ) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.6.0")]),_v(", generated on Tue, 8 Apr 2025, 2:20:44 GMT+8]")])])])}
+with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.6.0")]),_v(", generated on Tue, 8 Apr 2025, 2:45:00 GMT+8]")])])])}
 }];
   
