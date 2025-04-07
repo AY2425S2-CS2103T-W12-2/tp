@@ -1,12 +1,23 @@
 ---
   layout: default.md
-  title: "User Guide"
-  pageNav: 3
+    title: "User Guide"
+    pageNav: 3
 ---
 
 # WealthVault User Guide
 
 WealthVault is a **desktop app for managing contacts, optimized for use via a Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, WealthVault can get your contact management tasks done faster than traditional GUI apps.
+
+## Target Users and Assumptions
+
+This user guide is designed for financial advisors who seek a more organised and efficient way to manage their clients and their financial information. It assumes that users have basic knowledge of financial advisory practices and are familiar with managing client information, whether through spreadsheets, Customer Relationship Management (CRM) systems, or manual methods. Users are expected to understand the importance of client data management in delivering personalized financial advice.
+
+## About WealthVault
+
+WealthVault is a client management platform tailored specifically for financial advisors. It provides a centralized space for storing client profiles, addresses, and financial information — all in one easily accessible location. This product is especially valuable for advisors managing a large client base across multiple platforms, where keeping track of individual client needs can become challenging and time-consuming.
+
+## Why should you use WealthVault?
+Designed with the user in mind, WealthVault simplifies the organization of client data and streamlines day-to-day workflows. It enables financial advisors to quickly search for clients based on specific needs, access relevant information with ease, and deliver more targeted financial advisory services efficiently. Ultimately, WealthVault empowers advisors to provide higher-quality services while reducing administrative overhead, supporting both professional productivity and a healthier work-life balance.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -29,15 +40,15 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a Li
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   - `list` : Lists all contacts.
+    - `list` : Lists all contacts.
 
-   * `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the application.
+    * `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the application.
 
-   * `delc 3` : Deletes the 3rd contact shown in the current list.
+    * `delc 3` : Deletes the 3rd contact shown in the current list.
 
-   - `clear` : Deletes all contacts.
+    - `clear` : Deletes all contacts.
 
-   - `exit` : Exits the app.
+    - `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -61,14 +72,18 @@ WealthVault is a **desktop app for managing contacts, optimized for use via a Li
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
+
+* Command names (e.g. `addp`) are case-insensitive.
+
+
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 
-* **Use only the valid prefixes for each command format. Usage of prefixes other than the ones allowed can lead to the 
-value of the last prefix being deemed invalid. For example, 
-`addc n/Jo Ng e/j@gmail.com a/21 Lane p/81234321 x/Policy A` will result in the phone number being invalid as x/
-is not a valid prefix for addc.**
+* **Use only the valid prefixes for each command format. Usage of prefixes other than the ones allowed can lead to the
+  value of the last prefix being deemed invalid. For example,
+  `addc n/Jo Ng e/j@gmail.com a/21 Lane p/81234321 x/Policy A` will result in the phone number being invalid as x/
+  is not a valid prefix for addc.**
 
 
 - If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -113,9 +128,10 @@ is not a valid prefix for addc.**
   such that there is only 1 client in the list eventually displayed, only `delc 1` is a valid command to delete a client.
 
 </box>
+
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -271,6 +287,20 @@ Deletes multiple specified clients from WealthVault.
 - `list` followed by `deleteclientmult i/1 i/2 i/3` deletes the first three clients in WealthVault.
 - `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
 
+---
+
+> ### 💡 Tip: Why are there two delete commands?
+>
+> In WealthVault, client deletions are *permanent* — once a client is deleted, their information cannot be recovered.
+>
+> The `delc` command is designed to be the *primary* deletion method for most users. It only allows you to delete a single client at a time, encouraging careful review and minimizing the risk of accidental data loss.
+>
+> The `deleteclientmult` command exists as a quicker, more convenient alternative for experienced users who are certain about their deletions — for example, when performing bulk clean-ups or offboarding multiple clients at once.
+>
+> If you are unsure or would like to double-check your deletions, it is recommended to use `delc` for greater safety and control.
+
+---
+
 ### Deleting a policy: `delp`
 
 Deletes the specified policy from WealthVault.
@@ -287,10 +317,10 @@ Deletes the specified policy from WealthVault.
 - `delp 1 t/Health Insurance` deletes `Health Insurance` policy tag from index `1` of the list (in this case, John Tan)
 - `delp 2 t/Home Protection Plan` deletes `Home Protection Plan` policy tag from index `2` of the list (in this case, Jane Tan)
 
-   ![delp1](images/delp1.png)
-   ![delp2](images/delp2.png)
+  ![delp1](images/delp1.png)
+  ![delp2](images/delp2.png)
 
-### Prioritising a client: `priority`
+### Prioritizing a client: `priority`
 
 Toggles the priority of specified client from the application as indicated with a `Priority` tag.
 
@@ -398,4 +428,3 @@ _Details coming soon ..._
 | **Sort Priority**           | `sortpriority` 
 | **List**                    | `list`                                                                                                                                                                         |
 | **Help**                    | `help`                                                                                                                                                                         |
-

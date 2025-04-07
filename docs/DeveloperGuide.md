@@ -627,3 +627,30 @@ testers are expected to do more _exploratory_ testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+## **Planned Enhancements**
+**Team Size:** 5
+
+1. **Case-sensitivity of prefixes:** The current command format only allows prefixes in lowercase,
+e.g. `a/`, `n/`, `p/`. We plan to consider allowing prefixes to be case-insensitive to make it more convenient for users (e.g. 
+let `t/` and `T/` both be considered valid prefixes).
+
+
+2. **Input validation for policy tags (part 1):** We currently impose restrictions on policy tags to disallow certain symbols (`/` etc).
+However, the restriction might have been excessive. For instance, the user might want to create a policy tag with the name `Policy A/B`,
+which is likely a valid policy name in practice but is disallowed in our current setup. We plan to review the list of symbols allowed,
+to strike a balance between disallowing invalid input and maintaining flexibility for user-defined inputs.
+
+
+3. **Input validation for policy tags (part 2):** We currently capitalise the first character of every word in the policy tag (e.g. `addp 1 t/policy A` results in `Policy A` policy tag
+   being added to the client at index 1, rather than `policy A`), in order to prevent duplicates (e.g. `policy A` and `Policy A` might be the same policy). 
+However, this restriction may not always align with user expectations or preferences. For instance, the user might want to create a policy tag named `WholeLife Plan` rather than `"Wholelife Plan`.
+We plan to revisit our approach to formatting of policy tag names, to strike a balance between disallowing invalid input and maintaining flexibility for user-defined inputs.
+
+
+4. **Input validation for phone numbers:** We currently do not check for the validity of phone numbers based on the country code.
+For instance, `+65 12345` is considered despite it being necessary for Singapore phone numbers (country indicated by `+65`) to 
+be 8 digits long. We plan to include such checks when validating user input for phone numbers.
+
+
