@@ -19,6 +19,7 @@ Class Email
 Class Name
 Class Phone
 Class Tag
+Class PriorityTag
 
 Class I #FFFFFF
 }
@@ -42,6 +43,8 @@ Client *--> Phone
 Client *--> Email
 Client *--> Address
 Client *--> "*" Tag
+Client *--> "*..1" PriorityTag
+Tag -left-|> PriorityTag
 
 Client -[hidden]up--> I
 UniqueClientList -[hidden]right-> I

@@ -41,7 +41,6 @@
       "title": "Developer Guide",
       "headings": {
         "wealthvault-developer-guide": "WealthVault Developer Guide",
-        "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
         "architecture": "Architecture",
@@ -75,6 +74,8 @@
         "launch-and-shutdown": "Launch and shutdown",
         "adding-a-client": "Adding a client",
         "deleting-a-client": "Deleting a client",
+        "searching-for-clients": "Searching for Clients",
+        "togggling-priority": "Togggling Priority",
         "saving-data": "Saving data",
         "planned-enhancements": "Planned Enhancements"
       },
