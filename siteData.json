@@ -75,9 +75,10 @@
         "adding-a-client": "Adding a client",
         "adding-a-policy": "Adding a policy",
         "deleting-a-client": "Deleting a client",
+        "deleting-multiple-clients": "Deleting multiple clients",
         "deleting-a-policy": "Deleting a policy",
         "searching-for-clients": "Searching for Clients",
-        "togggling-priority": "Togggling Priority",
+        "toggling-priority": "Toggling Priority",
         "planned-enhancements": "Planned Enhancements"
       },
       "headingKeywords": {}
