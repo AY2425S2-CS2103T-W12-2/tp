@@ -14,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute()
+[-> LogicManager : execute("addp 1 t/Health Insurance")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand()
+LogicManager -> AddressBookParser : parseCommand("addp 1 t/Health Insurance")
 activate AddressBookParser
 
 create AddPolicyCommandParser
@@ -27,7 +27,7 @@ activate AddPolicyCommandParser
 AddPolicyCommandParser --> AddressBookParser
 deactivate AddPolicyCommandParser
 
-AddressBookParser -> AddPolicyCommandParser : parse()
+AddressBookParser -> AddPolicyCommandParser : parse("1 t/Health Insurance")
 activate AddPolicyCommandParser
 
 create AddPolicyCommand
