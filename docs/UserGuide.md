@@ -150,6 +150,12 @@ Adds a client to WealthVault.
 - `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL` and `a/ADDRESS` are compulsory.
 - `t/POLICY_TAG` is not compulsory. However, if t/ is used, a valid policy must be given.
 
+**Duplicate Handling:**
+
+- We allow clients with the same name as common names like "John" may be wrongfully detected as a duplicates.
+- We also allow clients with the same address, email and phone number as it is common for financial advisors to have more than 1 member of a family as clients, and they might choose to use the same contact information.
+- The only time `addc` will detect a client as a duplicate is if two clients share the same name, the same email, the same phone number and the same address all at the same time.
+
 </box>
 
 **Examples**:
@@ -341,14 +347,6 @@ Toggles the priority of specified client from the application as indicated with 
   Before |After
   -----------------|--------------------
   ![before priority command](images/priorityCommand2.png) | ![after 'priority 3'](images/priorityCommand3.png)
-
-Potential Errors:
-
-Errors           | Reason                                                                             |Fixes
------------------|------------------------------------------------------------------------------------|------------------------
-"Field is empty  | This error is thrown when no indexes are supplied to the `priority` command        | To fix this error, simply supply a proper index
-"Index is not a non-zero unsigned integer" | This error is thrown when a non-zero unsigned integer is supplied like `a` or `-1` | To fix this error, simply supply a non-zero unsigned integer
-"The client with the given index does not exist!"| This error is thrown when the specified index is bigger than the size of the list | To fix this error, input an index equal to or smaller than the size of the list
 
 ### Sorting by priority: `sortpriority`
 

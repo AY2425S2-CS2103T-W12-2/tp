@@ -51,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteclient 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delc 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
@@ -104,7 +104,7 @@ How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
+1. The command can communicate with the `Model` when it is executed (e.g. to delete a client).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
@@ -125,7 +125,7 @@ How the parsing works:
 
 The `Model` component,
 
-- stores the address book data i.e., all `Client` objects (which are contained in a `UniqueClientList` object).
+- stores WealthVault data i.e., all `Client` objects (which are contained in a `UniqueClientList` object).
 - stores the currently 'selected' `Client` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Client>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 - stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 - does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
@@ -160,30 +160,65 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Delete Client
+### Add Client
 
-The `deleteclient` command removes a client from the address book based on the specified index.
+The `addc` command adds a client from WealthVault based on the specified index.
 
 The Class Diagram of a Client can be [seen in the diagram above](#model-component).
 
 #### Implementation
 
-The `deleteclient` command deletes a client at a given index. The following sequence diagrams  
+The `addc` command adds a client at a given index. The following sequence diagrams  
+illustrate how this process flows through the logic component:
+
+<puml src="diagrams/AddClientSequenceDiagram-Logic.puml" width="650" />
+
+The following sequence diagram illustrates how the `AddClientCommand` class interacts with  
+model components to remove a client from WealthVault:
+
+<puml src="diagrams/AddClientSequenceDiagram-Client.puml" width="600" />
+
+As seen above, the `execute` method adds the `Client` to WealthVault. If the index is invalid, an error is thrown.
+
+### Add Policy
+
+The `addp` command adds a policy (tag) to a client's list of policies.
+
+The Class Diagram of a Client can be [seen in the diagram above](#model-component).
+
+#### Implementation
+
+The `addp` command adds a policy to the client at the given index.
+The following sequence diagrams illustrate how this process flows through the logic component:
+
+<puml src="diagrams/AddPolicySequenceDiagram.puml" width="650" />
+
+As seen above, the `execute` method adds the `Policy` to the client at the specified index. If the index is invalid, an error is thrown.
+
+### Delete Client
+
+The `delc` command removes a client from WealthVault based on the specified index.
+
+The Class Diagram of a Client can be [seen in the diagram above](#model-component).
+
+#### Implementation
+
+The `delc` command deletes a client at a given index. The following sequence diagrams  
 illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Logic.puml" width="650" />
 
 The following sequence diagram illustrates how the `DeleteClientCommand` class interacts with  
-model components to remove a client from the address book:
+model components to remove a client from WealthVault:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Client.puml" width="600" />
 
 As seen above, the `execute` method retrieves the `Client` at the specified index and removes  
-it from the address book. If the index is invalid, an error is thrown.
+it from WealthVault. If the index is invalid, an error is thrown.
 
 ### Delete Multiple Clients
 
-The `deleteclientmult` command removes multiple clients from the address book based on the specified indices.
+The `deleteclientmult` command removes multiple clients from WealthVault based on the specified indices.
 
 #### Implementation
 
@@ -193,7 +228,7 @@ illustrate how this process flows through the logic component:
 <puml src="diagrams/DeleteClientMultSequenceDiagram.puml" width="650" />
 
 As seen above, the `execute` method retrieves each `Client` at the specified indices and removes  
-them from the address book. If any index is invalid, an error is thrown.
+them from WealthVault. If any index is invalid, an error is thrown.
 
 #### Design Considerations
 
@@ -212,13 +247,13 @@ The current implementation uses Alternative 1 as it provides better clarity and 
 
 ### Delete Policy
 
-The `deletepolicy` command removes a policy (tag) from a client's list of policies.
+The `delp` command removes a policy (tag) from a client's list of policies.
 
 The Class Diagram of a Client can be [seen in the diagram above](#model-component).
 
 #### Implementation
 
-The `deletepolicy` command deletes a policy at a given index within a displayed policy list.  
+The `delp` command deletes a policy at a given index within a displayed policy list.  
 The following sequence diagrams illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeletePolicySequenceDiagram.puml" width="650" />
@@ -273,7 +308,7 @@ Below is a class diagram to demonstrate the relationship of the 3 classes.
 
 The following sequence diagram illustrates how the `AbstractFindClientCommand` and hence the
 `FindClientOrCommand` and `FindClientAndCommand` class interacts with  
-model components to get a filtered list from the address book:
+model components to get a filtered list from WealthVault:
 
 <puml src="diagrams/AbstractFindClientCommandSequenceDiagram.puml" width="750" />
 
@@ -334,6 +369,8 @@ updates to show the new sorted order of clients.
 
 #### Proposed Implementation
 
+**Note:** WealthVault will be referred to generically as Address Book in this section. 
+
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
 - `VersionedAddressBook#commit()` — Saves the current address book state in its history.
@@ -348,11 +385,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th clientin the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delc 5` command to delete the 5th client in WealthVault. The `delc` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delc 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `addc n/David …​` to add a new client. The `addc` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
@@ -395,11 +432,11 @@ The `redo` command does the opposite — it calls `Model#redoAddressBook()`,
 
 </box>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify Address Book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `addc n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
@@ -418,7 +455,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 - **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  - Pros: Will use less memory (e.g. for `delete`, just save the clientbeing deleted).
+  - Pros: Will use less memory (e.g. for `delc`, just save the client being deleted).
   - Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -457,22 +494,22 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​           | I want to …​                                          | So that I can…​                               |
-| -------- | ----------------- | ----------------------------------------------------- | --------------------------------------------- |
-| `* * *`  | Financial Advisor | Add a new client with contact details                 | Keep track of my clients                      |
-| `* * *`  | Financial Advisor | Read client’s contact details                         | View them when necessary                      |
-| `* * *`  | Financial Advisor | Delete a client’s record                              | Remove outdated or incorrect information      |
-| `* *`    | Financial Advisor | Edit a client’s contact details                       | Update them when necessary                    |
-| `* *`    | Financial Advisor | Search for a client by name                           | Quickly find their details                    |
-| `* *`    | Financial Advisor | Filter clients by location                            | Easily find clients within a specific region  |
-| `*`      | Financial Advisor | Store multiple contact numbers for a client           | Have alternative ways to reach them           |
-| `*`      | Financial Advisor | Store multiple addresses for a client                 | Keep track of their home and office locations |
-| `*`      | Financial Advisor | Categorize clients based on communication preferences | Contact them in their preferred way           |
-| `*`      | Financial Advisor | Send an email to a client directly from the app       | Communicate with them efficiently             |
-| `*`      | Financial Advisor | Initiate a phone call to a client from the app        | Reach them easily                             |
-| `*`      | Financial Advisor | Set reminders for following up with clients           | Don’t miss important meetings                 |
-| `*`      | Financial Advisor | Receive notifications about upcoming meetings         | Prepare in advance                            |
-| `*`      | Financial Advisor | Schedule recurring reminders for periodic check-ins   | Maintain regular contact                      |
+| Priority | As a …​           | I want to …​                                            | So that I can…​                               |
+| -------- | ----------------- |---------------------------------------------------------|-----------------------------------------------|
+| `* * *`  | Financial Advisor | Add a new client with contact details                   | Keep track of my clients                      |
+| `* * *`  | Financial Advisor | Read client’s contact details                           | View them when necessary                      |
+| `* * *`  | Financial Advisor | Delete a client’s record                                | Remove outdated or incorrect information      |
+| `* *`    | Financial Advisor | Edit a client’s contact details                         | Update them when necessary                    |
+| `* *`    | Financial Advisor | Search for a client by name                             | Quickly find their details                    |
+| `* *`    | Financial Advisor | Filter clients by location                              | Easily find clients within a specific region  |
+| `*`      | Financial Advisor | Store multiple contact numbers for a client             | Have alternative ways to reach them           |
+| `*`      | Financial Advisor | Store multiple addresses for a client                   | Keep track of their home and office locations |
+| `*`      | Financial Advisor | Categorize clients based on communication preferences   | Contact them in their preferred way           |
+| `*`      | Financial Advisor | Send an email to a client directly from the application | Communicate with them efficiently             |
+| `*`      | Financial Advisor | Initiate a phone call to a client from the application  | Reach them easily                             |
+| `*`      | Financial Advisor | Set reminders for following up with clients             | Not miss important meetings                   |
+| `*`      | Financial Advisor | Receive notifications about upcoming meetings           | Prepare in advance                            |
+| `*`      | Financial Advisor | Schedule recurring reminders for periodic check-ins     | Maintain regular contact                      |
 
 _{More to be added}_
 
@@ -488,8 +525,8 @@ _{More to be added}_
 2. WealthVault requests client details.
 3. User enters the required client details.
 4. WealthVault verifies the details.
-5. WealthVault adds the client to the address book and confirms successful addition.
-   **Use case ends.**
+5. WealthVault adds the client to WealthVault and confirms successful addition.
+6. **Use case ends.**
 
 #### Extensions:
 
@@ -519,10 +556,9 @@ _{More to be added}_
 1. User chooses to delete a client.
 2. WealthVault requests the client’s details for deletion.
 3. User enters the required details.
-4. WealthVault requests confirmation of the deletion.
-5. User confirms the deletion.
-6. WealthVault removes the client from the address book and confirms successful deletion.
-   **Use case ends.**
+4. User confirms the deletion by clicking "enter".
+5. WealthVault removes the client from WealthVault and confirms successful deletion. 
+6. **Use case ends.**
 
 #### Extensions:
 
@@ -533,7 +569,7 @@ _{More to be added}_
   - Steps 3a1-3a2 are repeated until the data entered are correct.
   - **Use case resumes from step 4.**
 
-- **3b. The client does not exist in the address book.**
+- **3b. The client does not exist in WealthVault.**
 
   - 3b1. WealthVault notifies the user that the client is not found.
   - 3b2. User chooses to either retry or cancel the operation.
@@ -550,7 +586,7 @@ _{More to be added}_
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 clients without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -603,17 +639,32 @@ testers are expected to do more _exploratory_ testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Adding a client
 
-1. Deleting a client while all persons are being shown
+1. Adding a client while all clients are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+
+    1. Test case: `addc 1`<br>
+       Expected: First contact is added from the list. Details of the added contact shown in the status message.
+
+    1. Test case: `addc 0`<br>
+       Expected: No client is added. Error details shown in the status message.
+
+    1. Other incorrect add commands to try: `addc`, `addc x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Deleting a client
+
+1. Deleting a client while all clients are being shown
+
+   1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
 
    1. Test case: `delc 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
 
    1. Test case: `delc 0`<br>
-      Expected: No client is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No client is deleted. Error details shown in the status message. 
 
    1. Other incorrect delete commands to try: `delc`, `delc x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
