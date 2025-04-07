@@ -18,10 +18,7 @@ public class Phone {
                     "Phone numbers should be of the format +[international code] [number].\n"
                             + "If no international code is provided, the phone number will start with +65.\n"
                             + "Do not include whitespace in the international code.\n\n"
-                            + AddClientCommand.MESSAGE_USAGE
-                            + "\n\n"
-                            + "For more information on valid email formats, you may refer to the following:"
-                            + "\nThe international code should be 1-3 digits.\n"
+                            + "The international code should be 1-3 digits.\n"
                             + "The number should be at most 13 digits.");
 
     public static final String VALIDATION_REGEX = "^(\\+?\\d{1,3} )?\\d{3,13}$";
