@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteClientMultCommand;
 
+//AI-Generated Comment, by {FooNicholas}
+
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
  * outside of the DeleteClientMultCommand code. For example, inputs "i/1" and "i/1 abc" take the

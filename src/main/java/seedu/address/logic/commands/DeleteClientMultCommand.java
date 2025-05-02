@@ -36,6 +36,8 @@ public class DeleteClientMultCommand extends Command {
         this.targetIndices = targetIndices;
     }
 
+    // AI-Generated Assistance used, method by {FooNicholas}
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
