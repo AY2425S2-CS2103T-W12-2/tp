@@ -209,7 +209,7 @@ Shows a list of all clients in WealthVault.
 **Examples**:
 
   <img src="images/list_command_image.png" alt=";ist" width="600">
-
+<!--- Some lines were AI generated, {Joshua Tan} -->
 ### Editing contact information : `edit`
 
 Edits an existing person in the address book. This command allows changing the client's name and contact information (phone, email, address). Note that tags cannot be edited with this command.

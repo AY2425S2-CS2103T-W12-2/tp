@@ -31,7 +31,7 @@ import seedu.address.testutil.ModelStub;
  * Contains unit tests for {@code UpdateClientCommand}.
  */
 public class UpdateClientCommandTest {
-
+// Some tests were AI assisted but cleared, tests by {Joshua Tan}
     @Test
     public void constructor_nullDescriptor_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new UpdateClientCommand(INDEX_FIRST_CLIENT, null));

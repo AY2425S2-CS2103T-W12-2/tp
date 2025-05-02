@@ -30,7 +30,7 @@ import seedu.address.model.tag.Tag;
  * Edits the details of an existing client in the address book.
  */
 public class EditCommand extends Command {
-
+// Some parts were AI assisted but cleared, edit command by {Joshua Tan}
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
