@@ -3,19 +3,16 @@
   title: "Developer Guide"
   pageNav: 3
 ---
+<style>
+body {
+    font-size: 1em !important;
+}
+</style>
 
 # WealthVault Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
-
----
-
-## **Acknowledgements**
-
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
----
 
 ## **Setting up, getting started**
 
@@ -174,7 +171,7 @@ illustrate how this process flows through the logic component:
 <puml src="diagrams/AddClientSequenceDiagram-Logic.puml" width="650" />
 
 The following sequence diagram illustrates how the `AddClientCommand` class interacts with  
-model components to remove a client from WealthVault:
+model components to add a client to WealthVault:
 
 <puml src="diagrams/AddClientSequenceDiagram-Client.puml" width="600" />
 
@@ -197,7 +194,7 @@ As seen above, the `execute` method adds the `Policy` to the client at the speci
 
 ### Delete Client
 
-The `delc` command removes a client from WealthVault based on the specified index.
+The `delc` command deletes a client from WealthVault based on the specified index.
 
 The Class Diagram of a Client can be [seen in the diagram above](#model-component).
 
@@ -208,27 +205,23 @@ illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Logic.puml" width="650" />
 
-The following sequence diagram illustrates how the `DeleteClientCommand` class interacts with  
-model components to remove a client from WealthVault:
+The following sequence diagram illustrates how the `DeleteClientCommand` class interacts with model components to delete a client from WealthVault:
 
 <puml src="diagrams/DeleteClientSequenceDiagram-Client.puml" width="600" />
 
-As seen above, the `execute` method retrieves the `Client` at the specified index and removes  
-it from WealthVault. If the index is invalid, an error is thrown.
+As seen above, the `execute` method retrieves the `Client` at the specified index and deletes it from WealthVault. If the index is invalid, an error is thrown.
 
 ### Delete Multiple Clients
 
-The `deleteclientmult` command removes multiple clients from WealthVault based on the specified indices.
+The `deleteclientmult` command deletes multiple clients from WealthVault based on the specified indices.
 
 #### Implementation
 
-The `deleteclientmult` command deletes multiple clients at given indices. The following sequence diagrams  
-illustrate how this process flows through the logic component:
+The `deleteclientmult` command deletes multiple clients at given indices. The following sequence diagrams illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeleteClientMultSequenceDiagram.puml" width="650" />
 
-As seen above, the `execute` method retrieves each `Client` at the specified indices and removes  
-them from WealthVault. If any index is invalid, an error is thrown.
+As seen above, the `execute` method retrieves each `Client` at the specified indices and deletes them from WealthVault. If any index is invalid, an error is thrown.
 
 #### Design Considerations
 
@@ -247,19 +240,18 @@ The current implementation uses Alternative 1 as it provides better clarity and 
 
 ### Delete Policy
 
-The `delp` command removes a policy (tag) from a client's list of policies.
+The `delp` command deletes a policy (tag) from a client's list of policies.
 
 The Class Diagram of a Client can be [seen in the diagram above](#model-component).
 
 #### Implementation
 
-The `delp` command deletes a policy at a given index within a displayed policy list.  
+The `delp` command deletes a policy from the client at the given index.  
 The following sequence diagrams illustrate how this process flows through the logic component:
 
 <puml src="diagrams/DeletePolicySequenceDiagram.puml" width="650" />
 
-As seen above, the `execute` method retrieves the `Policy` at the specified index and removes  
-it from the corresponding `Client` object. If the index is invalid, an error is thrown.
+As seen above, the `execute` method retrieves the `Policy` from the client at the specified index and deletes it from the corresponding `Client` object. If the index is invalid, an error is thrown.
 
 ### Priority feature
 
@@ -494,28 +486,31 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​           | I want to …​                                            | So that I can…​                               |
-| -------- | ----------------- |---------------------------------------------------------|-----------------------------------------------|
-| `* * *`  | Financial Advisor | Add a new client with contact details                   | Keep track of my clients                      |
-| `* * *`  | Financial Advisor | Read client’s contact details                           | View them when necessary                      |
-| `* * *`  | Financial Advisor | Delete a client’s record                                | Remove outdated or incorrect information      |
-| `* *`    | Financial Advisor | Edit a client’s contact details                         | Update them when necessary                    |
-| `* *`    | Financial Advisor | Search for a client by name                             | Quickly find their details                    |
-| `* *`    | Financial Advisor | Filter clients by location                              | Easily find clients within a specific region  |
-| `*`      | Financial Advisor | Store multiple contact numbers for a client             | Have alternative ways to reach them           |
-| `*`      | Financial Advisor | Store multiple addresses for a client                   | Keep track of their home and office locations |
-| `*`      | Financial Advisor | Categorize clients based on communication preferences   | Contact them in their preferred way           |
-| `*`      | Financial Advisor | Send an email to a client directly from the application | Communicate with them efficiently             |
-| `*`      | Financial Advisor | Initiate a phone call to a client from the application  | Reach them easily                             |
-| `*`      | Financial Advisor | Set reminders for following up with clients             | Not miss important meetings                   |
-| `*`      | Financial Advisor | Receive notifications about upcoming meetings           | Prepare in advance                            |
-| `*`      | Financial Advisor | Schedule recurring reminders for periodic check-ins     | Maintain regular contact                      |
+| Priority | As a …​           | I want to …​                                            | So that I can…​                                      |
+| -------- | ----------------- |---------------------------------------------------------|------------------------------------------------------|
+| `* * *`  | Financial Advisor | Add a new client with contact details                   | Keep track of my clients                             |
+| `* * *`  | Financial Advisor | Read client’s contact details                           | View them when necessary                             |
+| `* * *`  | Financial Advisor | Delete a client’s record                                | Remove outdated or incorrect information             |
+| `* *`    | Financial Advisor | Edit a client’s contact details                         | Update them when necessary                           |
+| `* *`    | Financial Advisor | Search for a client by name                             | Quickly find their details                           |
+| `* *`    | Financial Advisor | Sort clients in alphabetical order                      | Quickly find their details                           |
+| `* *`    | Financial Advisor | Mark client's priority status                           | Quickly identify and attend to high-priority clients |
+| `* *`    | Financial Advisor | Sort client by priority status                          | Quickly identify and attend to high-priority clients |
+| `* *`    | Financial Advisor | Filter clients by location                              | Easily find clients within a specific region         |
+| `*`      | Financial Advisor | Store multiple contact numbers for a client             | Have alternative ways to reach them                  |
+| `*`      | Financial Advisor | Store multiple addresses for a client                   | Keep track of their home and office locations        |
+| `*`      | Financial Advisor | Categorize clients based on communication preferences   | Contact them in their preferred way                  |
+| `*`      | Financial Advisor | Send an email to a client directly from the application | Communicate with them efficiently                    |
+| `*`      | Financial Advisor | Initiate a phone call to a client from the application  | Reach them easily                                    |
+| `*`      | Financial Advisor | Set reminders for following up with clients             | Not miss important meetings                          |
+| `*`      | Financial Advisor | Receive notifications about upcoming meetings           | Prepare in advance                                   |
+| `*`      | Financial Advisor | Schedule recurring reminders for periodic check-ins     | Maintain regular contact                             |
 
 _{More to be added}_
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `WealthVault` and the **Actor** is the `user`, unless specified otherwise)
 
 ### UC01 - Add Client
 
@@ -557,7 +552,7 @@ _{More to be added}_
 2. WealthVault requests the client’s details for deletion.
 3. User enters the required details.
 4. User confirms the deletion by clicking "enter".
-5. WealthVault removes the client from WealthVault and confirms successful deletion. 
+5. WealthVault deletes the client from WealthVault and confirms successful deletion. 
 6. **Use case ends.**
 
 #### Extensions:
@@ -625,60 +620,92 @@ testers are expected to do more _exploratory_ testing.
 ### Launch and shutdown
 
 1. Initial launch
-
    1. Download the jar file and copy into an empty folder
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-1. Saving window preferences
-
+2. Saving window preferences
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-   1. Re-launch the app by double-clicking the jar file.<br>
+   2. Re-launch the app by double-clicking the jar file.<br>
       Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Adding a client
-
 1. Adding a client while all clients are being shown
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `addc n/David Ong p/93012489 e/davidong@example.com a/Block 111 Sengkang Central t/Life Policy`<br>
+   Expected: New contact is added to the bottom of the list. Details of the added contact shown in the status message.
+4. Test case: `addc 0`<br>
+   Expected: No client is added. Error details shown in the status message.
+5. Other incorrect addc commands to try: `addc`, `addc x`, `...`<br>
+   Expected: Similar to previous.
 
-    1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
-
-    1. Test case: `addc 1`<br>
-       Expected: First contact is added from the list. Details of the added contact shown in the status message.
-
-    1. Test case: `addc 0`<br>
-       Expected: No client is added. Error details shown in the status message.
-
-    1. Other incorrect add commands to try: `addc`, `addc x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+### Adding a policy
+1. Adding a policy while all clients are being shown
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `addp 1 t/Health Insurance`<br>
+   Expected: "Health Insurance" policy is added to the first contact of the list. Details of the added policy shown in the status message.
+4. Test case: `addp 0`<br>
+   Expected: No policy is added. Error details shown in the status message.
+5. Other incorrect addp commands to try: `addp`, `addp x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
 
 ### Deleting a client
-
 1. Deleting a client while all clients are being shown
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `delc 1`<br>
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
+4. Test case: `delc 0`<br>
+   Expected: No client is deleted. Error details shown in the status message. 
+5. Other incorrect delc commands to try: `delc`, `delc x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
 
-   1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+### Deleting multiple clients
+1. Deleting multiple clients while all clients are being shown
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `deleteclientmult i/1 i/2`<br>
+   Expected: First and second contact are deleted from the list. Details of the deleted contacts shown in the status message.
+4. Test case: `deleteclientmult i/2`<br>
+   Expected: No client is deleted. Error details shown in the status message.
+5. Other incorrect deleteclientmult commands to try: `deleteclientmult`, `deleteclientmult i/1 i/x` (where x is larger than the list size)<br>
+   Expected: Similar to previous.
 
-   1. Test case: `delc 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. 
+### Deleting a policy
+1. Deleting a policy while all clients are being shown
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `delp 1 t/Health Insurance`<br>
+   Expected: "Health Insurance" policy is deleted from the first contact of the list. Details of the deleted policy shown in the status message.
+4. Test case: `delp 0`<br>
+   Expected: No policy is deleted. Error details shown in the status message.
+5. Other incorrect delp commands to try: `delp`, `delp x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
-   1. Test case: `delc 0`<br>
-      Expected: No client is deleted. Error details shown in the status message. 
+### Searching for Clients
 
-   1. Other incorrect delete commands to try: `delc`, `delc x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+#### Find Any
+1. Find a client with any of the keywords matching the tags or names
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `findany Alex Priority`<br>
+   Expected: Shows all clients with the name or tags matching either (or both) "Alex" or "Priority" (case-insensitve)
+4. Test case: `findany`<br>
+   Expected: No client shown. Error details shown in the status message.
 
-1. _{ more test cases …​ }_
+#### Find All
+1. Find a client with any of the keywords matching the tags or names
+2. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `findany Alex friends`<br>
+   Expected: Shows all clients with the name or tags matching both "Alex" or "friends" (case-insensitve)
+4. Test case: `findall`<br>
+   Expected: No client shown. Error details shown in the status message.
 
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
-
+### Toggling Priority
+1. Toggles the priority (as shown by the `Priority` tag) of a client while all clients are being shown
+2. Prerequisite 1: Put the jar file in a new folder as the test below is for sample data.
+3. Prerequisite 2: List all clients using the `list` command. Multiple clients in the list.
+3. Test case: `priority 1`<br>
+   Expected: First contact (Alex) has a Priority tag added to his card. A success message is shown in the status box.
+4. Test case: `priority 1` (again)<br>
+   Expected: First contact (Alex) has a Priority tag removed from his card. A success message is shown in the status box.
+5. Some incorrect commands to try: `priority`, `priority x`, `...` (where x is larger than the list size)<br>
+   Expected: Similar to `addc` and `delc`.
 
 ## **Planned Enhancements**
 **Team Size:** 5

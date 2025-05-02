@@ -10,6 +10,7 @@ UniqueTagList -[hidden]down- UniqueClientList
 UniqueTagList -[hidden]down- UniqueClientList
 
 UniqueTagList -right-> "*" Tag
+UniqueTagList -right-> "*..1" PriorityTag
 PriorityTag --|> Tag
 UniqueClientList -right-> Client
 

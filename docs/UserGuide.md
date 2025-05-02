@@ -51,10 +51,10 @@ Designed with the user in mind, WealthVault simplifies the organization of clien
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar wealthvault.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    <br>
-   <img src="images/UI.png" alt="UI" width="600">
+   <img src="images/Ui.png" alt="UI" width="600">
 
-<div style="page-break-after: always;"/>
-<br>
+<div style="page-break-after: always;"/><br>
+
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
@@ -171,6 +171,7 @@ Adds a client to WealthVault.
 - The only time `addc` will detect a client as a duplicate is if two clients share the same name, the same email, the same phone number and the same address all at the same time.
 
 </box>
+<div style="page-break-after: always;"/><br>
 
 **Examples**:
 
@@ -181,6 +182,7 @@ Adds a client to WealthVault.
 - `addc n/Daniel Lim p/91234567 e/d@mail.com a/8 View t/Policy A t/Policy B` adds a new client with the specified information
 
   <img src="images/addc2.png" alt="addc2" width="600">
+<div style="page-break-after: always;"/><br>
 
 ### Adding a policy: `addp`
 
@@ -197,6 +199,7 @@ Adds a policy to a client in WealthVault.
 - `addp 2 t/Home Protection Plan` adds `Home Protection Plan` policy tag to index `2` of the list (in this case, Daniel Lim)
   
   <img src="images/addp2.png" alt="addp2" width="600">
+<div style="page-break-after: always;"/><br>
 
 ### Listing all clients : `list`
 
@@ -208,8 +211,12 @@ Shows a list of all clients in WealthVault.
 
 **Examples**:
 
-  <img src="images/list_command_image.png" alt=";ist" width="600">
+<img src="images/list_command_image.png" alt=";ist" width="600">
+
 <!--- Some lines were AI generated, {Joshua Tan} -->
+
+<div style="page-break-after: always;"/><br>
+
 ### Editing contact information : `edit`
 
 Edits an existing person in the address book. This command allows changing the client's name and contact information (phone, email, address). Note that tags cannot be edited with this command.
@@ -226,6 +233,7 @@ Edits an existing person in the address book. This command allows changing the c
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 
    <img src="images/edit1.png" alt="edit1" width="600">
+<div style="page-break-after: always;"/><br>
 
 * `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
@@ -239,6 +247,7 @@ Updates only the contact information (phone, email, address) of an existing clie
 
 - Updates the client at the specified `INDEX`. The index refers to the index number shown in the displayed client list. The index **must be a positive integer** 1, 2, 3, …​
 - At least one of the optional fields must be provided.
+- Name is not allowed to be updated to prevent accidently changing the contact's name.
 - Existing values will be updated to the input values.
 - Name and tags cannot be modified using this command. Use the `edit` command instead.
 
@@ -246,6 +255,8 @@ Updates only the contact information (phone, email, address) of an existing clie
 
 - `update 1 p/91234567 e/johndoe@example.com` Updates the phone number and email address of the 1st client to be `91234567` and `johndoe@example.com` respectively.
 - `update 2 a/Clementi Ave 6` Updates only the address of the 2nd client to be `Clementi Ave 6`.
+
+<div style="page-break-after: always;"/><br>
 
 ### Locating clients by name and tag: `findany`
 
@@ -300,6 +311,7 @@ Deletes the specified client from WealthVault.
 - `list` followed by `delc 1` deletes the 1st client in the client list (in this case, John Tan).
 
   <img src="images/delc1.png" alt="delc1" width="600">
+<div style="page-break-after: always;"/><br>
 
 - `findany Jane` followed by `delc 2` deletes the 2nd client in the results of the `findany` command (in this case, Jane Lee).
   
@@ -320,9 +332,9 @@ Deletes multiple specified clients from WealthVault.
 **Examples**:
 
 - `list` followed by `deleteclientmult i/1 i/2 i/3` deletes the first three clients in WealthVault.
-- `findand Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
+- `findany Betsy` followed by `deleteclientmult i/1` deletes the 1st client in the results of the `findany` command.
 
-  <img src="images/deleteclientmult.png" alt="deleteclientmult" width="600">
+  <img src="images/deleteclientmult_command_image.png" alt="deleteclientmult" width="600">
 
 > ### 💡 Tip: Why are there two delete commands?
 >
@@ -338,12 +350,12 @@ Deletes multiple specified clients from WealthVault.
 
 ### Deleting a policy: `delp`
 
-Deletes the specified policy from WealthVault.
+Deletes the specified policy from a client in WealthVault.
 
 **Format**: `delp INDEX t/POLICY_TAG`
 
-- Deletes the policy at the specified `INDEX`.
-- The index refers to the index number shown in the displayed policy list.
+- Deletes the policy from the client at the specified `INDEX`.
+- The index refers to the index number shown in the displayed client list.
 - The index **must be a positive integer** 1, 2, 3, …​
 - POLICY_TAG must match the policy name to be deleted.
 
@@ -387,7 +399,7 @@ Sorts all currently displayed entries on WealthVault in alphabetical order.
 
 **Example**:
 
-* `list` followed by `sort` sorts all names in the client list in alphabetical order.
+* `list` followed by `sort` sorts all names in the client list.
 * `findany Tan` followed by `sort` sorts the results of the `findany` command.
 
 <img src="images/sortcommand_image.png" alt="SortCommand" width="600">
@@ -404,6 +416,7 @@ Sorts all clients in the list by priority, with prioritized clients appearing at
 
 **Example**:
 * `sortpriority` rearranges the list to show prioritized clients first, followed by non-prioritized clients.
+<div style="page-break-after: always;"/><br>
 
 ### Clearing all entries : `clear`
 
@@ -411,19 +424,28 @@ Clears all entries from WealthVault.
 
 **Format**: `clear`
 
+> ❗ **Warning:** This action is irreversible! To retain past data, please [save a backup](#managing-your-data-in-wealthvault) of the data file.
+
 ### Exiting the program : `exit`
 
 Exits the program.
 
 **Format**: `exit`
 
+___
+## Managing your data in WealthVault
+
 ### Saving the data
 
-WealthVault data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+WealthVault data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually. WealthVault data are saved automatically as a JSON file `[JAR file location]/data/wealthvault.json`.
+
+### Saving a backup data file 
+
+WealthVault does not back up data automatically. To back up your data, copy the JSON file (as mentioned above) into another location on your computer or to another device.
 
 ### Editing the data file
 
-WealthVault data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+WealthVault data are saved automatically as a JSON file `[JAR file location]/data/wealthvault.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -462,7 +484,7 @@ _Details coming soon ..._
 | **Delete Client**           | `delc INDEX `<br> e.g., `delc 3`                                                                                                                                               |
 | **Delete Multiple Clients** | `deleteclientmult i/INDEX [i/INDEX]…​`<br> e.g., `deleteclientmult i/3` or `deleteclientmult i/1 i/2 i/3`                                                                      |
 | **Delete Policy**           | `delp INDEX t/POLICY_TAG`<br> e.g., `delp 2 t/Health Insurance`                                                                                                                |
-| **Edit**                    | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/POLICY_TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                             |
+| **Edit**                    | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com a/Edgedale Plains`                                             |
 | **Update**                  | `update INDEX [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS]`<br> e.g.,`update 2 p/91234567 e/jameslee@example.com`                                                                    |
 | **Find (Or)**               | `findany KEYWORD [MORE_KEYWORDS]`<br> e.g., `findany James Jake`                                                                                                     |
 | **Find (And)**              | `findall KEYWORD [MORE_KEYWORDS]`<br> e.g., `findall James Jake`                                                                                                   |
