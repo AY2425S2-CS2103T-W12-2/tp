@@ -34,7 +34,7 @@ public class DeleteClientMultCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         // Empty input
         assertParseFailure(parser, "", String.format("Missing index parameters."
-                + MESSAGE_INVALID_COMMAND_FORMAT,
+                        + MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteClientMultCommand.MESSAGE_USAGE));
 
         // Single index
