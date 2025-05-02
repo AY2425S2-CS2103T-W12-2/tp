@@ -211,7 +211,10 @@ Shows a list of all clients in WealthVault.
 
 **Examples**:
 
-  <img src="images/list_command_image.png" alt=";ist" width="600">
+<img src="images/list_command_image.png" alt=";ist" width="600">
+
+<!--- Some lines were AI generated, {Joshua Tan} -->
+
 <div style="page-break-after: always;"/><br>
 
 ### Editing contact information : `edit`

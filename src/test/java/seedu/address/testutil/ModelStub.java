@@ -10,6 +10,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.client.Client;
 
+// This class was AI assisted to help create some tests, class by {Joshua Tan}
 /**
  * A default model stub that has all of the methods failing.
  */
