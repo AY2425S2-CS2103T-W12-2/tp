@@ -36,7 +36,7 @@ import seedu.address.testutil.EditClientDescriptorBuilder;
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
 public class EditCommandTest {
-// Some tests were AI assisted but cleared, tests by {Joshua Tan}
+    // Some tests were AI assisted but cleared, tests by {Joshua Tan}
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
